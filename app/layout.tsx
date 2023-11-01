@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import './globals.css'
 import { cn } from '@/lib/utils'
+import { ClerkProvider } from '@clerk/nextjs'
 
 const font = Open_Sans({ subsets: ['latin'] })
 
@@ -16,13 +17,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn(
-        font.className,
-        "bg-[#313338]"
-      )}>
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body className={cn(
+          font.className,
+          "bg-[#313338]"
+        )}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   )
 }

@@ -1,3 +1,5 @@
+import { UserButton } from "@clerk/nextjs";
+
 const MemberIdPage = () => {
   return ( 
     <div className="bg-[#313338] flex flex-col items-center justify-center h-full gap-y-5">
@@ -12,6 +14,7 @@ const MemberIdPage = () => {
           Usa Whatsaap en hasta 4 dispositivos vinculados y 1 telefono a la vez
         </p>
      </div>
+      <UserButton afterSignOutUrl="/" />
     </div>
    );
 }
