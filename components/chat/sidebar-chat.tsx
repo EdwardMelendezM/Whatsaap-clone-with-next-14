@@ -1,12 +1,23 @@
-"use client"
-
+import { currentProfile } from "@/lib/current-user";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
 import { ScrollArea } from "../ui/scroll-area";
 import CreateChatButton from "./create-button-chat";
 import FilterButtonChat from "./filter-button-chat";
 import UserItemChat from "./user-item-chat";
+import { redirectToSignIn } from "@clerk/nextjs";
+import { db } from "@/lib/db";
 
-const SidebarChat = () => {
+const SidebarChat = async () => {
+
+  const profile = await currentProfile()
+  if (!profile) return redirectToSignIn()
+
+  const conversations = await db.conversation.findMany({
+    where: {
+      
+    }
+  })
+
   return ( 
     <div className="h-full flex flex-col gap-y-4 bg-zinc-800">
       <div className="mt-4 px-4 font-medium flex">

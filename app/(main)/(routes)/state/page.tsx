@@ -1,6 +1,6 @@
 const MemberIdPage = () => {
   return (
-    <div className="bg-[#313338] flex flex-col items-center justify-center h-full gap-y-5">
+    <div className="bg-[#313338] flex flex-col items-center justify-center h-full gap-y-5 p-8">
       <p className="text-4xl text-center text-white font-medium">
         Estados en Whatsaap
       </p>

@@ -1,6 +1,14 @@
-const MemberIdPage = () => {
+import { currentProfile } from "@/lib/current-user";
+import { redirectToSignIn } from "@clerk/nextjs";
+
+
+
+const MemberIdPage = async () => {
+  const profile = await currentProfile()
+  if(!profile) return redirectToSignIn()
+  
   return (
-    <div className="bg-[#313338] flex flex-col items-center justify-center h-full gap-y-5">
+    <div className="bg-[#313338] flex flex-col items-center justify-center h-full gap-y-5 p-8">
       <p className="text-4xl text-center text-white font-medium">
         Llamadas en Whatsaap
       </p>

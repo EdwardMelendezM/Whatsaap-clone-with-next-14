@@ -1,6 +1,6 @@
 import SidebarChat from "@/components/chat/sidebar-chat";
 
-const LayoutConversations = ({
+const LayoutConversations = async ({
   children
 }: { children: React.ReactNode }) => {
   return ( 
