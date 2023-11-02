@@ -5,7 +5,7 @@ const LayoutConversations = ({
 }: { children: React.ReactNode }) => {
   return ( 
     <div className="h-full">
-      <div className="hidden md:flex h-full w-[300px] z-30 flex-col fixed inset-y-0">
+      <div className="hidden md:flex h-full w-[300px] z-29 flex-col fixed inset-y-0">
         <SidebarChat />
       </div>
       <div className="md:pl-[300px] h-full">
