@@ -1,4 +1,5 @@
 "use client"
+import { UserButton } from "@clerk/nextjs";
 import NavigationItem from "./navigation-item";
 
 type NavigationRoute = {
@@ -41,6 +42,7 @@ const NavegationSidebar = () => {
           ))
         }
       </div>
+      <UserButton afterSignOutUrl="/" />
       <NavigationItem
         name={"Configuracion"}
         icon={"settings"}
