@@ -4,7 +4,26 @@ import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
 import UserItemChat from "./user-item-chat";
-const CreateChatButton = () => {
+import { ConversationType } from "@/dtype";
+import { Profile } from "@prisma/client";
+import useConversations from "@/hook/useConversations";
+
+interface CreateChatProps {
+  items: ConversationType[]
+  profiles: Profile[]
+  profilePhone: string
+}
+
+
+const CreateChatButton = ({
+  items,
+  profilePhone,
+  profiles
+}: CreateChatProps) => {
+
+  const { conversationId, isOpen } = useConversations()
+
+
   return ( 
     <Popover>
       <PopoverTrigger asChild>
@@ -22,12 +41,17 @@ const CreateChatButton = () => {
             <CommandList>
               <CommandEmpty className="text-gray-300 text-md mt-4 px-2 text-center">No hay resultados encontrados</CommandEmpty>
               <CommandGroup >
-                <CommandItem className="aria-selected:bg-transparent py-2">
-                  <UserItemChat />
-                </CommandItem>
-                <CommandItem className="aria-selected:bg-transparent py-2">
-                  <UserItemChat />
-                </CommandItem>
+                {
+                  items.map((item) => (
+                    <CommandItem key={item.id}>
+                      <UserItemChat
+                        data={item}
+                        selected={conversationId === item.id}
+                        profilePhone={profilePhone}
+                      />
+                    </CommandItem>
+                  ))
+                }
               </CommandGroup>
             </CommandList>
           </Command>
