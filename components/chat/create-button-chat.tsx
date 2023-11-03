@@ -6,7 +6,8 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import UserItemChat from "./user-item-chat";
 import { ConversationType } from "@/dtype";
 import { Profile } from "@prisma/client";
-import useConversations from "@/hook/useConversations";
+import useConversations from "@/hook/use-conversations";
+import UserBox from "./user-box";
 
 interface CreateChatProps {
   items: ConversationType[]
@@ -21,7 +22,7 @@ const CreateChatButton = ({
   profiles
 }: CreateChatProps) => {
 
-  const { conversationId, isOpen } = useConversations()
+  const { conversationId } = useConversations()
 
 
   return ( 
@@ -40,7 +41,7 @@ const CreateChatButton = ({
             <CommandInput placeholder="Buscar" className="text-gray-300 border-b-green-400" />
             <CommandList>
               <CommandEmpty className="text-gray-300 text-md mt-4 px-2 text-center">No hay resultados encontrados</CommandEmpty>
-              <CommandGroup >
+              <CommandGroup title="Frecuentes" >
                 {
                   items.map((item) => (
                     <CommandItem key={item.id}>
@@ -51,6 +52,18 @@ const CreateChatButton = ({
                       />
                     </CommandItem>
                   ))
+                }
+              </CommandGroup>
+              <CommandGroup title="Todos los contactos">
+                {
+                  profiles.map((item) => (
+                    <CommandItem key={item.id}>
+                      <UserBox
+                        data={item}
+                      />
+                    </CommandItem>
+                  ))
+                
                 }
               </CommandGroup>
             </CommandList>

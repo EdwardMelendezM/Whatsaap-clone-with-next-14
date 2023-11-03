@@ -3,8 +3,7 @@ import { ConversationType } from "@/dtype";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
 import { ScrollArea } from "../ui/scroll-area";
 import UserItemChat from "./user-item-chat";
-import { Profile } from "@prisma/client";
-import useConversations from "@/hook/useConversations";
+import useConversations from "@/hook/use-conversations";
 
 interface ListChatProps{
   items: ConversationType[]
@@ -16,7 +15,7 @@ const ListChat = ({
   profilePhone
 }: ListChatProps) => {
 
-  const { conversationId, isOpen } = useConversations()
+  const { conversationId } = useConversations()
 
 
   return ( 
