@@ -40,7 +40,9 @@ const CreateChatButton = ({
           <Command className="bg-zinc-800">
             <CommandInput placeholder="Buscar" className="text-gray-300 border-b-green-400" />
             <CommandList>
-              <CommandEmpty className="text-gray-300 text-md mt-4 px-2 text-center">No hay resultados encontrados</CommandEmpty>
+              <CommandEmpty className="text-gray-300 text-md mt-4 px-2 text-center">
+                No hay resultados encontrados
+              </CommandEmpty>
               <CommandGroup title="Frecuentes" >
                 {
                   items.map((item) => (
