@@ -12,7 +12,8 @@ model Profile {
 
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   userId   String @unique
-  name     String 
+  name     String
+  info     String? @default("Disponible")
   imageUrl String 
   email    String 
   phone    String @unique

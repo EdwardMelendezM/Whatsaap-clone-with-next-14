@@ -34,13 +34,13 @@ const CreateChatButton = ({
       </PopoverTrigger>
       <PopoverContent className="w-[300px] bg-zinc-800/90 border-none shadow-lg" align="start">
         <div className="flex flex-col gap-y-2 px-3 py-2">
-          <p className="text-2xl text-gray-100 font-medium">
+          <p className="text-xl text-gray-100 font-medium">
             Nuevo Chat
           </p>
           <Command className="bg-zinc-800">
-            <CommandInput placeholder="Buscar" className="text-gray-300 border-b-green-400" />
+            <CommandInput placeholder="Buscar" className="text-gray-300 border-b-green-400 text-sm" />
             <CommandList>
-              <CommandEmpty className="text-gray-300 text-md mt-4 px-2 text-center">
+              <CommandEmpty className="text-gray-300 text-md mt-4 px-2 text-center text-sm">
                 No hay resultados encontrados
               </CommandEmpty>
               <CommandGroup title="Frecuentes" >

@@ -23,7 +23,6 @@ const NavigationItem = ({
   name,
   path,
   icon,
-  onShow
 }: NavigationItemProps) => {
 
   const pathname = usePathname()
@@ -33,8 +32,6 @@ const NavigationItem = ({
   const handleOnClick = () => {
     if(path){
       router.push(path)
-    }else{
-      onShow && onShow()
     }
   }
 
