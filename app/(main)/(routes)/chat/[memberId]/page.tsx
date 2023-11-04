@@ -1,4 +1,5 @@
 import ChatHeader from "@/components/chat/chat-header";
+import ChatMessages from "@/components/chat/chat-message";
 
 interface MemberIdPageProps {
   params: {
@@ -19,6 +20,8 @@ const MemberIdPage = async ({
         name={'Juan'}
         serverId={params.memberId}
         type="conversation"
+      />
+      <ChatMessages
       />
     </div>
    );

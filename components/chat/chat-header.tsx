@@ -24,20 +24,21 @@ const ChatHeader = ({
           </AvatarFallback>
         </Avatar>
       )}
-      <div className="flex flex-col text items-center justify-start pl-4">
+      <div className="flex flex-col text items-start justify-center pl-4">
         <p className="font-semibold text-md text-gray-200 text-medium">
           {name}
         </p>
         <p className="text-gray-400 font-light text-sm">
-          Activo
+          {/* en linea */}
+          ult. vez hoy a la(s) 08:33
         </p>
       </div>
       <div className="ml-auto flex items-center">
         {type === "conversation" && (
-          <>
+          <div>
             <ChatVideoButton />
             <ChatCallButton />
-          </>
+          </div>
         )}
       </div>
     </div>
