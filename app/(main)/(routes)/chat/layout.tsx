@@ -1,4 +1,4 @@
-import SidebarChat from "@/components/chat/sidebar-chat";
+import SidebarChat from "@/components/conversations/sidebar-chat";
 
 const LayoutConversations = async ({
   children
