@@ -2,7 +2,7 @@
 
 import  axios  from "axios"
 import { Profile } from "@prisma/client";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import AvatarOtherUser from "./avatar-other-user";
 
