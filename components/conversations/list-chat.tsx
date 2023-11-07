@@ -28,7 +28,7 @@ const ListChat = ({
             <CommandGroup className="mt-2 ml-0 pl-0" >
               {
                 items.map((item) => (
-                  <CommandItem key={item.id}>
+                  <CommandItem className="bg-zinc-800" key={item.id}>
                     <UserItemChat
                       data={item}
                       selected={conversationId === item.id}
