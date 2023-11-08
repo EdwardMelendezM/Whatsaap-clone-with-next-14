@@ -67,14 +67,15 @@ const UserItemChat = ({
         "hover:bg-zinc-700 bg-zinc-800 h-[60px] px-3  flex justify-start items-center gap-x-4 w-[245px]",
         selected && "bg-zinc-700"
       )}>
-      <AvatarOtherUser profile={otherProfile} />
+      <AvatarOtherUser  />
       <div className="flex-1">
         <div className="flex">
           <p className="text-start font-medium text-gray-300 truncate flex-1">
             {data.name}
           </p>
           <p className="text-xs text-gray-400">
-            {format(new Date(lastMessage.createdAt), 'p')}
+            {/* // TODO */}
+            {lastMessage && format(new Date(lastMessage?.createdAt), 'p')}
           </p>
         </div>
         <p className="mt-1 text-start  text-xs text-gray-400 truncate flex gap-x-1">

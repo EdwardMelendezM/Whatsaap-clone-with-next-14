@@ -31,7 +31,6 @@ const SidebarChat = async () => {
           items={conversations}
           profilePhone={profilePhone}
         />
-        
       </div>
     </div>
    );

@@ -3,9 +3,9 @@ import { useMemo } from "react";
 
 const useOtherProfile = (conversations: ConversationType, profilePhone: string) => {
   const otherProfile = useMemo(()=>{
-    const otherProfile = conversations.profiles.filter((profile)=>profile.phone !== profilePhone)
-
-    return otherProfile[0]
+    const otherProfile = conversations?.profiles?.filter((profile)=>profile.phone !== profilePhone)
+    // TODO
+    return otherProfile ?? null
   }, [conversations, profilePhone])
 
   return otherProfile

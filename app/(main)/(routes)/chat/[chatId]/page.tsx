@@ -1,4 +1,5 @@
 import ChatHeader from "@/components/chat/chat-header";
+import ChatInput from "@/components/chat/chat-input";
 import ChatMessages from "@/components/chat/chat-message";
 import getConversationById from "@/lib/get-conversations-by-id";
 import getMessages from "@/lib/get-message";
@@ -26,6 +27,9 @@ const MemberIdPage = async ({
       />
       <ChatMessages
         initialMessages={messages}
+      />
+      <ChatInput
+        
       />
 
     </div>

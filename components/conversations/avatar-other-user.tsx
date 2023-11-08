@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Profile } from "@prisma/client";
 
 interface AvatarOtherUserProps{
-  profile: Profile
+  profile?: Profile
 }
 
 const AvatarOtherUser = ({
@@ -11,7 +11,8 @@ const AvatarOtherUser = ({
 }: AvatarOtherUserProps) => {
   return ( 
     <Avatar>
-      <AvatarImage src={profile.imageUrl} />
+      {/* // todo */}
+      <AvatarImage src={profile?.imageUrl || "" } />
       <AvatarFallback>
         <Users2 className="w-4 h-4" />
       </AvatarFallback>

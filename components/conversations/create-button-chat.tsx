@@ -43,7 +43,7 @@ const CreateChatButton = ({
               <CommandEmpty className="text-gray-300 text-md mt-4 px-2 text-center text-sm">
                 No hay resultados encontrados
               </CommandEmpty>
-              <CommandGroup title="Frecuentes" >
+              {/* <CommandGroup title="Frecuentes" >
                 {
                   items.map((item) => (
                     <CommandItem key={item.id}>
@@ -55,7 +55,7 @@ const CreateChatButton = ({
                     </CommandItem>
                   ))
                 }
-              </CommandGroup>
+              </CommandGroup> */}
               <CommandGroup title="Todos los contactos">
                 {
                   profiles.map((item) => (

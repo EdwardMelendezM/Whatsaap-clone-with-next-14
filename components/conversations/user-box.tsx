@@ -21,18 +21,20 @@ const UserBox = ({
     setIsLoading(true)
     axios.post('api/conversations', {profileId: data.id})
       .then((data)=> {
-        router.push(`/chat/${data.data.id}`)
+        router.push(`/conversations/${data.data.id}`)
       })
       .finally(()=> setIsLoading(false))
   },[data,router])
 
   return ( 
-    <div className=" w-full relative flex items-center space-x-3 bg-white p-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer">
+    <div
+      className=" w-full relative flex items-center space-x-3 bg-zinc-800 p-3 hover:bg-zinc-700 rounded-lg transition cursor-pointer"
+      onClick={handleClick}>
       <AvatarOtherUser profile={data} />
       <div className="focus:outline-none">
         <span className="absolute inset-0" aria-placeholder="true"/>
         <div className="flex justify-between items-center mb-1">
-          <p className="text-xs font-medium text-gray-200">
+          <p className="text-xs font-medium text-gray-400">
             {data.name}
           </p>
         </div>
