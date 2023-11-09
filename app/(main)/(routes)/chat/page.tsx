@@ -1,10 +1,10 @@
-import { currentProfile } from "@/lib/get-current-user";
+import { getCurrentUser } from "@/lib/get-current-user";
 import { redirectToSignIn } from "@clerk/nextjs";
 
 const MemberIdPage = async () => {
 
-  const profile = await currentProfile()
-  if (!profile) return redirectToSignIn()
+  const user = await getCurrentUser()
+  if (!user) return redirectToSignIn()
 
   return ( 
     <div className="bg-[#313338] flex flex-col items-center justify-center h-full gap-y-5 p-8">

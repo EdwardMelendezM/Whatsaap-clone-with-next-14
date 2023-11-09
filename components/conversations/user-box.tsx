@@ -1,13 +1,13 @@
 "use client"
 
 import  axios  from "axios"
-import { Profile } from "@prisma/client";
+import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import AvatarOtherUser from "./avatar-other-user";
 
 interface UserboxProps{
-  data: Profile
+  data: User
 }
 
 const UserBox = ({
@@ -30,7 +30,7 @@ const UserBox = ({
     <div
       className=" w-full relative flex items-center space-x-3 bg-zinc-800 p-3 hover:bg-zinc-700 rounded-lg transition cursor-pointer"
       onClick={handleClick}>
-      <AvatarOtherUser profile={data} />
+      <AvatarOtherUser user={data} />
       <div className="focus:outline-none">
         <span className="absolute inset-0" aria-placeholder="true"/>
         <div className="flex justify-between items-center mb-1">

@@ -1,18 +1,18 @@
 import { Users2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-import { Profile } from "@prisma/client";
+import { User } from "@prisma/client";
 
 interface AvatarOtherUserProps{
-  profile?: Profile
+  user?: User
 }
 
 const AvatarOtherUser = ({
-  profile
+  user
 }: AvatarOtherUserProps) => {
   return ( 
     <Avatar>
       {/* // todo */}
-      <AvatarImage src={profile?.imageUrl || "" } />
+      <AvatarImage src={user?.imageUrl || "" } />
       <AvatarFallback>
         <Users2 className="w-4 h-4" />
       </AvatarFallback>

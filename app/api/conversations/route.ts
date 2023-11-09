@@ -1,12 +1,12 @@
 import { db } from "@/lib/db"
-import { currentProfile } from "@/lib/get-current-user"
+import { getCurrentUser } from "@/lib/get-current-user"
 import { NextResponse } from "next/server"
 
 export async function POST(
   request: Request,
 ){
   try {
-    const currentUser = await currentProfile()
+    const currentUser = await getCurrentUser()
     const body = await request.json()
 
     const {

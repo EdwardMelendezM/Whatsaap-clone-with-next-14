@@ -40,7 +40,7 @@ const ChatItemBox = ({
   return ( 
     <div className={container}>
       <div className={avatar}>
-        <AvatarOtherUser profile={data.sender} />
+        <AvatarOtherUser user={data.sender} />
       </div>
       <div className={body}>
         <div className="flex items-center gap-1">

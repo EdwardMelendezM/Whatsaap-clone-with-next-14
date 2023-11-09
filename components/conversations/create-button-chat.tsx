@@ -3,23 +3,22 @@ import { Edit } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { Button } from "../ui/button";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "../ui/command";
-import UserItemChat from "./user-item-chat";
 import { ConversationType } from "@/dtype";
-import { Profile } from "@prisma/client";
+import { User } from "@prisma/client";
 import useConversations from "@/hook/use-conversations";
 import UserBox from "./user-box";
 
 interface CreateChatProps {
   items: ConversationType[]
-  profiles: Profile[]
-  profilePhone: string
+  users: User[]
+  userPhone: string
 }
 
 
 const CreateChatButton = ({
   items,
-  profilePhone,
-  profiles
+  userPhone,
+  users
 }: CreateChatProps) => {
 
   const { conversationId } = useConversations()
@@ -58,7 +57,7 @@ const CreateChatButton = ({
               </CommandGroup> */}
               <CommandGroup title="Todos los contactos">
                 {
-                  profiles.map((item) => (
+                  users.map((item) => (
                     <CommandItem key={item.id}>
                       <UserBox
                         data={item}

@@ -1,9 +1,9 @@
 import { redirectToSignIn } from "@clerk/nextjs";
-import { currentProfile } from "./get-current-user";
+import { getCurrentUser } from "./get-current-user";
 import { db } from "./db";
 
 const getConversations = async () => {
-  const profile = await currentProfile()
+  const profile = await getCurrentUser()
   if (!profile) return redirectToSignIn()
 
   try {

@@ -1,11 +1,11 @@
 import { db } from "./db";
-import { currentProfile } from "./get-current-user";
+import { getCurrentUser } from "./get-current-user";
 
 const getConversationById = async (
   conversationsId: string
 ) => {
   try {
-    const currentUser = await currentProfile()
+    const currentUser = await getCurrentUser()
     if(!currentUser?.phone){
       return null
     }

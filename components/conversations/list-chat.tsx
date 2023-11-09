@@ -7,12 +7,12 @@ import useConversations from "@/hook/use-conversations";
 
 interface ListChatProps{
   items: ConversationType[]
-  profilePhone: string 
+  userPhone: string 
 }
 
 const ListChat = ({
   items,
-  profilePhone
+  userPhone
 }: ListChatProps) => {
 
   const { conversationId } = useConversations()
@@ -32,7 +32,7 @@ const ListChat = ({
                     <UserItemChat
                       data={item}
                       selected={conversationId === item.id}
-                      profilePhone={profilePhone}
+                      profilePhone={userPhone}
                     />
                   </CommandItem>
                 ))
