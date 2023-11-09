@@ -8,7 +8,7 @@ datasource db {
   relationMode = "prisma"
 }
 
-model Profile {
+model User {
 
   id       String @id @default(auto()) @map("_id") @db.ObjectId
   userId   String @unique
@@ -40,7 +40,7 @@ model Conversation {
   messagesIds   String[] @db.ObjectId
   messages      Message[]
   userIds       String[] @db.ObjectId
-  users         Profile[] @relation(fields: [userIds], references: [id])
+  users         User[] @relation(fields: [userIds], references: [id])
 }
 
 model Message {
@@ -50,13 +50,13 @@ model Message {
   createdAt DateTime @default(now())
 
   seenIds String[] @db.ObjectId
-  seen Profile[] @relation("Seen", fields: [seenIds], references: [id])
+  seen User[] @relation("Seen", fields: [seenIds], references: [id])
 
   conversationId String @db.ObjectId
   conversation Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
   senderId String @db.ObjectId
-  sender Profile @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }
 
 model Status {
@@ -67,5 +67,5 @@ model Status {
   createdAt   DateTime @default(now())
 
   profileId   String @db.ObjectId
-  profile     Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profile     User @relation(fields: [profileId], references: [id], onDelete: Cascade)
 }

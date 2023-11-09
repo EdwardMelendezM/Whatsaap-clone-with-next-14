@@ -55,7 +55,7 @@ const UserItemChat = ({
   }
 
   const otherProfile = useOtherProfile(data, profilePhone)
-
+  const a = 0
   const handleClick = useCallback(()=>{
     router.push(`/chat/${data.id}`)
   },[])
