@@ -4,7 +4,6 @@ import { redirectToSignIn } from "@clerk/nextjs";
 const MemberIdPage = async () => {
 
   const user = await getCurrentUser()
-  if (!user) return redirectToSignIn()
 
   return ( 
     <div className="bg-[#313338] flex flex-col items-center justify-center h-full gap-y-5 p-8">

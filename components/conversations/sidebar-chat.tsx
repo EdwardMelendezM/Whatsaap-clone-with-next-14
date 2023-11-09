@@ -10,11 +10,12 @@ const SidebarChat = async () => {
   const conversations = await getConversations()
   const users = await getUsers()
   const current = await currentUser()
-  
-  const userPhone = current?.phoneNumbers[0].phoneNumber!
-  if (!userPhone){
+  if (!current) {
     return redirectToSignIn()
   }
+  
+  const userPhone = current?.phoneNumbers[0].phoneNumber!
+  
   
   return ( 
     <div className="h-full flex flex-col gap-y-4 bg-zinc-800 border-gray-900 border-r">

@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs"
+import { auth, redirectToSignIn } from "@clerk/nextjs"
 import { db } from "./db"
 
 export const getCurrentUser = async() => {
@@ -11,5 +11,8 @@ export const getCurrentUser = async() => {
       userId
     }
   })
+
+  if (!profile) return redirectToSignIn()
+  
   return profile
 }
