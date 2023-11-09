@@ -3,13 +3,13 @@ import CreateChatButton from "./create-button-chat";
 import FilterButtonChat from "./filter-button-chat";
 import { ConversationType } from "@/dtype";
 import ListChat from "./list-chat";
-import getProfiles from "@/lib/get-users";
+import getUsers from "@/lib/get-users";
 import { currentUser, redirectToSignIn } from "@clerk/nextjs";
 
 const SidebarChat = async () => {
 
   const conversations:ConversationType[] = await getConversations()
-  const profiles = await getProfiles()
+  const profiles = await getUsers()
   const currentProfile = await currentUser()
   const profilePhone = currentProfile?.phoneNumbers[0].phoneNumber!
   if(!profilePhone){

@@ -8,7 +8,7 @@ import { format } from "date-fns"
 import { useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation"
 import AvatarOtherUser from "./avatar-other-user";
-import useOtherProfile from "@/hook/use-other-profile";
+import useOtherUser from "@/hook/use-other-user";
 import { redirectToSignIn } from "@clerk/nextjs";
 
 interface UserItemChatProps{
@@ -54,7 +54,7 @@ const UserItemChat = ({
     return redirectToSignIn()
   }
 
-  const otherProfile = useOtherProfile(data, profilePhone)
+  const otherProfile = useOtherUser(data, profilePhone)
   const a = 0
   const handleClick = useCallback(()=>{
     router.push(`/chat/${data.id}`)

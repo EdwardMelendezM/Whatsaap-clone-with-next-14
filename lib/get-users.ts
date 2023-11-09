@@ -2,12 +2,12 @@ import { redirectToSignIn } from "@clerk/nextjs";
 import { currentProfile } from "./get-current-user";
 import { db } from "./db";
 
-const getProfiles = async () => {
+const getUsers = async () => {
   const profile = await currentProfile()
   if (!profile) return redirectToSignIn()
 
   try {
-    const users = await db.profile.findMany({
+    const users = await db.user.findMany({
       orderBy: {
         createdAt: 'desc'
       },
@@ -24,4 +24,4 @@ const getProfiles = async () => {
   }
 }
  
-export default getProfiles;
+export default getUsers;

@@ -1,14 +1,14 @@
 import { ConversationType } from "@/dtype";
 import { useMemo } from "react";
 
-const useOtherProfile = (conversations: ConversationType, profilePhone: string) => {
+const useOtherUser = (conversations: ConversationType, profilePhone: string) => {
   const otherProfile = useMemo(()=>{
     const otherProfile = conversations?.users?.filter((user)=>user.phone !== profilePhone)
     // TODO
-    return otherProfile ?? null
+    return otherProfile[0]
   }, [conversations, profilePhone])
 
   return otherProfile
 }
  
-export default useOtherProfile;
+export default useOtherUser;

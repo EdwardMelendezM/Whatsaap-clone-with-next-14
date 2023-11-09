@@ -1,10 +1,10 @@
-import initialProfile from "@/lib/initial-profile";
+import initialUser from "@/lib/initial-user";
 import { redirectToSignIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 const SetupPage = () => {
 
-  const profile = initialProfile()
+  const profile = initialUser()
   if(!profile){
     return redirectToSignIn()
   }

@@ -1,11 +1,11 @@
-import { Conversation, Message, Profile } from "@prisma/client";
+import { Conversation, Message, User } from "@prisma/client";
 
 export type MessageType = Message & {
-  sender: Profile;
-  seen: Profile[]
+  sender: User;
+  seen: User[]
 }
 
 export type ConversationType  = Conversation & {
-  profiles: Profile[];
+  users: User[];
   messages: MessageType[]
 }
