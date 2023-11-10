@@ -6,13 +6,13 @@ export const getCurrentUser = async() => {
 
   if(!userId) return null
 
-  const profile = await db.user.findUnique({
+  const user = await db.user.findUnique({
     where: {
       userId
     }
   })
 
-  if (!profile) return redirectToSignIn()
+  if (!user) return redirectToSignIn()
   
-  return profile
+  return user
 }

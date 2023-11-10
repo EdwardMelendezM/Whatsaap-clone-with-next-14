@@ -3,6 +3,7 @@ import { db } from "./db";
 
 const initialUser = async () => {
   const initialCurrent = await currentUser()
+  
   if (!initialCurrent){
     return redirectToSignIn()
   }

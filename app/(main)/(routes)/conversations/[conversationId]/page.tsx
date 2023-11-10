@@ -6,7 +6,7 @@ import getMessages from "@/lib/get-message";
 
 interface MemberIdPageProps {
   params: {
-    chatId: string;
+    conversationId: string;
   }
 }
 
@@ -14,15 +14,15 @@ const MemberIdPage = async ({
   params
 }: MemberIdPageProps) => {
 
-  const conversation = await getConversationById(params.chatId)
-  const messages = await getMessages(params.chatId)
+  const conversation = await getConversationById(params.conversationId)
+  const messages = await getMessages(params.conversationId)
 
   return ( 
     <div className="bg-zinc-800 flex flex-col h-full">
       <ChatHeader
         imageUrl={''}
         name={'Juan'}
-        serverId={params.chatId}
+        serverId={params.conversationId}
         type="conversation"
       />
       <ChatMessages
