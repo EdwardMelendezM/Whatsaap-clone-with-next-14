@@ -31,7 +31,7 @@ const CreateChatButton = ({
           <Edit className="w-4 h-4 text-gray-100" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-[300px] bg-zinc-800/90 border-none shadow-lg" align="start">
+      <PopoverContent className="w-[300px] bg-zinc-800 border-none shadow-lg" align="start">
         <div className="flex flex-col gap-y-2 px-3 py-2">
           <p className="text-xl text-gray-100 font-medium">
             Nuevo Chat

@@ -64,7 +64,7 @@ const UserItemChat = ({
     <Button
       onClick={handleClick}
       className={cn(
-        "hover:bg-zinc-700 bg-zinc-800 h-[60px] px-3  flex justify-start items-center gap-x-4 w-[245px]",
+        "bg-transparent hover:bg-zinc-700 bg-zinc-800 h-[60px] px-3  flex justify-start items-center gap-x-4 w-[245px]",
         selected && "bg-zinc-700"
       )}>
       <AvatarOtherUser  />
