@@ -57,7 +57,7 @@ const UserItemChat = ({
   const otherProfile = useOtherUser(data, profilePhone)
   const a = 0
   const handleClick = useCallback(()=>{
-    router.push(`/chat/${data.id}`)
+    router.push(`/conversations/${data.id}`)
   },[])
 
   return ( 

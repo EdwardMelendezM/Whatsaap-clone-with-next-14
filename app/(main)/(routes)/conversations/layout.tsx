@@ -1,6 +1,5 @@
 import SidebarChat from "@/components/conversations/sidebar-chat";
 import { getCurrentUser } from "@/lib/get-current-user";
-import { redirectToSignIn } from "@clerk/nextjs";
 
 const LayoutConversations = async ({
   children

@@ -8,7 +8,7 @@ const SetupPage = () => {
   if(!profile){
     return redirectToSignIn()
   }
-  return redirect("/chat")
+  return redirect("/conversations")
 }
  
 export default SetupPage;
