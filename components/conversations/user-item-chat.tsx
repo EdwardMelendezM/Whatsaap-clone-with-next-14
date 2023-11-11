@@ -9,7 +9,7 @@ import { useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation"
 import AvatarOtherUser from "./avatar-other-user";
 import useOtherUser from "@/hook/use-other-user";
-import { redirectToSignIn } from "@clerk/nextjs";
+import { redirectToSignIn, useSession } from "@clerk/nextjs";
 
 interface UserItemChatProps{
   selected?: boolean
@@ -20,7 +20,6 @@ interface UserItemChatProps{
 const UserItemChat = ({
   data,
   selected,
-  profilePhone
 }: UserItemChatProps) => {
   
   const router = useRouter()
@@ -31,6 +30,8 @@ const UserItemChat = ({
     return message[message.length-1]
   },[data.messages])
 
+  const session = useSession()
+  const profilePhone = session?.session?.user?.primaryPhoneNumber?.phoneNumber
 
   const hasSeen = useMemo(()=>{
     if(!lastMessage) return false
@@ -51,14 +52,14 @@ const UserItemChat = ({
   }, [lastMessage]);
 
   if (!profilePhone!) {
-    return redirectToSignIn()
+    return 
   }
 
   const otherProfile = useOtherUser(data, profilePhone)
-  const a = 0
-  const handleClick = useCallback(()=>{
+  const handleClick = ()=>{
+    //TODO USECALLBACK
     router.push(`/conversations/${data.id}`)
-  },[])
+  }
 
   return ( 
     <Button
@@ -67,11 +68,11 @@ const UserItemChat = ({
         "bg-transparent hover:bg-zinc-700 bg-zinc-800 h-[60px] px-3  flex justify-start items-center gap-x-4 w-[245px]",
         selected && "bg-zinc-700"
       )}>
-      <AvatarOtherUser  />
+      <AvatarOtherUser user={otherProfile} />
       <div className="flex-1">
         <div className="flex">
           <p className="text-start font-medium text-gray-300 truncate flex-1">
-            {data.name}
+            {data?.name}
           </p>
           <p className="text-xs text-gray-400">
             {/* // TODO */}
@@ -85,7 +86,7 @@ const UserItemChat = ({
               <CheckCheckIcon
                 className={cn(
                   "w-4 h-4 ",
-                  hasSeen ? "text-blue-500" : "text-gray-400"
+                  hasSeen && lastMessageText !== "Empieza a chatear!" ? "text-blue-500" : "text-gray-400"
                 )} />
             )
            }
