@@ -5,11 +5,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useConversations from "@/hook/use-conversations";
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem } from '@/components/ui/form';
-import { Mic } from 'lucide-react';
+import {Mic, Paperclip} from 'lucide-react';
 import { Input } from '../ui/input';
 import EmojiPicker from '../emoji-picker';
 import { Button } from '../ui/button';
 import PaperclipIcon from '../paper-clip';
+import axios from "axios";
 
 const formSchema = z.object({
   message: z.string().min(1)
@@ -29,6 +30,10 @@ const ChatInput = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      await axios.post("/api/messages", {
+        ...values,
+        conversationId: conversationId
+      })
       form.reset();
     } catch (error) {
       console.log(error)
@@ -45,30 +50,34 @@ const ChatInput = () => {
             render={({ field }) => (
               <FormItem>
                 <FormControl>
-                  <div className="relative p-4 pb-6">
+                  <div className="flex bg-zinc-800 border-t-2 border-zinc-900 items-center px-2 py-1">
                     <Button
                       variant={"ghost"}
                       type="button"
-                      className="absolute top-7 left-16 h-[24px] w-[24px] hover:bg-transparent"
-                    >
-                      <PaperclipIcon />
-                    </Button>
-                    <Button
-                      variant={"ghost"}
-                      type="button"
-                      className="absolute top-7 left-8 h-[24px] w-[24px] hover:bg-transparent"
+                      className="hover:bg-zinc-700 h-full"
                     >
                       <EmojiPicker />
+                    </Button>
+                    <Button
+                        variant={"ghost"}
+                        type="button"
+                        className="hover:bg-zinc-700 h-full"
+                    >
+                      <Paperclip className="w-5 h-5 text-zinc-300 transparent" />
                     </Button>
                     <Input
                       disabled={isLoading}
                       placeholder='Escribe un mensaje'
-                      className="pl-24 pr-12 py-6  bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-200 "
+                      className="bg-transparent border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-200 placeholder:text-gray-300"
                       {...field}
                     />
-                    <div className="absolute top-7 right-8">
-                      <Mic className="w-5 h-5 text-gray-300 hover:text-gray-400 transition cursor-pointer" />
-                    </div>
+                    <Button
+                        variant={"ghost"}
+                        type="button"
+                        className="hover:bg-zinc-700 h-full"
+                    >
+                      <Mic className="hover:bg-zinc-700 text-zinc-300 transparent w-5 h-5" />
+                    </Button>
                   </div>
                 </FormControl>
               </FormItem>

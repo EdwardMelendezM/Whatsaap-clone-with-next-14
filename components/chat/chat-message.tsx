@@ -4,6 +4,7 @@ import { MessageType } from "@/dtype";
 import useConversations from "@/hook/use-conversations";
 import { useEffect, useRef, useState } from "react";
 import ChatItemBox from "./chat-item-box";
+import {ScrollArea} from "@/components/ui/scroll-area";
 
 interface ChatMessageProps {
   initialMessages: MessageType[];
@@ -23,17 +24,20 @@ const ChatMessages = ({
   },[conversationId])
 
   return (
-    <div className="flex-1 overflow-y-auto">  
-      {
-        messages.map((message,i)=> (
-          <ChatItemBox
-            isLast={i === messages.length - 1}
-            key={message.id}
-            data={message}
-          />
-        ))
-      }
-    </div>
+      <ScrollArea>
+        <div className="flex-1 overflow-y-auto flex flex-col mt-3 mb-5">
+          {
+            messages.map((message,i)=> (
+                <ChatItemBox
+                    isLast={i === messages.length - 1}
+                    key={message.id}
+                    data={message}
+                />
+            ))
+          }
+        </div>
+      </ScrollArea>
+
    );
 }
  

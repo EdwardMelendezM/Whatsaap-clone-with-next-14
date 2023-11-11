@@ -69,7 +69,7 @@ const UserItemChat = ({
       <AvatarOtherUser user={otherProfile} />
       <div className="flex-1">
         <div className="flex">
-          <p className="text-start font-medium text-gray-300 truncate flex-1">
+          <p className="text-start font-medium text-gray-300 truncate w-28">
             {otherProfile?.name}
           </p>
           <p className="text-xs text-gray-400">
@@ -77,19 +77,23 @@ const UserItemChat = ({
             {lastMessage && format(new Date(lastMessage?.createdAt), 'p')}
           </p>
         </div>
-        <p className="mt-1 text-start  text-xs text-gray-400 truncate flex gap-x-1">
-           
-           {
-            !data.isGroup && lastMessageText() !== "Empieza a chatear!" && (
-              <CheckCheckIcon
-                className={cn(
-                  "w-4 h-4 ",
-                  hasSeen()  ? "text-blue-500" : "text-gray-400"
-                )} />
-            )
-           }
-          {lastMessageText()}
-        </p>
+        <div className="max-w-[160px] flex gap-x-1">
+          <p className="">
+            {
+                !data.isGroup && lastMessageText() !== "Empieza a chatear!" && (
+                    <CheckCheckIcon
+                        className={cn(
+                            "w-4 h-4 ",
+                            hasSeen()  ? "text-blue-500" : "text-gray-400"
+                        )} />
+                )
+            }
+          </p>
+          <p className="text-xs text-gray-400 truncate">
+            {lastMessageText()}
+          </p>
+        </div>
+
       </div>
     </Button>
    );

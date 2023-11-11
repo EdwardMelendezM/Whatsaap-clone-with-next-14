@@ -28,9 +28,7 @@ const MemberIdPage = async ({
       <ChatMessages
         initialMessages={messages}
       />
-      <ChatInput
-        
-      />
+      <ChatInput/>
 
     </div>
    );
