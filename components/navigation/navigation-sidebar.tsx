@@ -5,14 +5,14 @@ import NavigationSetting from "./navigation-config";
 
 type NavigationRoute = {
   name: string,
-  path: "/chat" | "/call" | "/state" | "/settings" ,
+  path: "/conversations" | "/call" | "/state" | "/settings" ,
   icon: "chat" | "call" | "state" | "settings"
 }
 
 const navigationRoutes: Array<NavigationRoute>  = [
   {
     name: "Chats",
-    path: "/chat",
+    path: "/conversations",
     icon: "chat"
   },
   {

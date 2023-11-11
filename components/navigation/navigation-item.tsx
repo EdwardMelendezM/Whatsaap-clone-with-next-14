@@ -7,7 +7,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 interface NavigationItemProps{
   name: string
-  path?: "/chat" | "/call" | "/state" | "/settings" ,
+  path?: "/conversations" | "/call" | "/state" | "/settings" ,
   icon: "chat" | "call" | "state" | "settings",
   onShow?: () => void
 }
