@@ -9,12 +9,11 @@ import { useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation"
 import AvatarOtherUser from "./avatar-other-user";
 import useOtherUser from "@/hook/use-other-user";
-import { redirectToSignIn, useSession } from "@clerk/nextjs";
+import { useSession } from "@clerk/nextjs";
 
 interface UserItemChatProps{
   selected?: boolean
   data: ConversationType
-  profilePhone?: string
 }
 
 const UserItemChat = ({
@@ -32,14 +31,17 @@ const UserItemChat = ({
 
   const session = useSession()
   const profilePhone = session?.session?.user?.primaryPhoneNumber?.phoneNumber
+  if(!profilePhone){
+    return
+  }
 
-  const hasSeen = useMemo(()=>{
+  const hasSeen = ()=> {
     if(!lastMessage) return false
     const seenArray = lastMessage.seen || []
     return seenArray.filter((profile) => profile?.phone === profilePhone ).length!==0
-  }, [profilePhone, lastMessage])
+  }
 
-  const lastMessageText = useMemo(() => {
+  const lastMessageText = () => {
     if (lastMessage?.image) {
       return 'Sent an image';
     }
@@ -49,11 +51,7 @@ const UserItemChat = ({
     }
 
     return 'Empieza a chatear!';
-  }, [lastMessage]);
-
-  if (!profilePhone!) {
-    return 
-  }
+  };
 
   const otherProfile = useOtherUser(data, profilePhone)
   const handleClick = ()=>{
@@ -72,7 +70,7 @@ const UserItemChat = ({
       <div className="flex-1">
         <div className="flex">
           <p className="text-start font-medium text-gray-300 truncate flex-1">
-            {data?.name}
+            {otherProfile?.name}
           </p>
           <p className="text-xs text-gray-400">
             {/* // TODO */}
@@ -82,15 +80,15 @@ const UserItemChat = ({
         <p className="mt-1 text-start  text-xs text-gray-400 truncate flex gap-x-1">
            
            {
-            !data.isGroup && (
+            !data.isGroup && lastMessageText() !== "Empieza a chatear!" && (
               <CheckCheckIcon
                 className={cn(
                   "w-4 h-4 ",
-                  hasSeen && lastMessageText !== "Empieza a chatear!" ? "text-blue-500" : "text-gray-400"
+                  hasSeen()  ? "text-blue-500" : "text-gray-400"
                 )} />
             )
            }
-          {lastMessageText}
+          {lastMessageText()}
         </p>
       </div>
     </Button>

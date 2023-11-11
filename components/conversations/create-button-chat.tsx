@@ -11,13 +11,11 @@ import UserBox from "./user-box";
 interface CreateChatProps {
   items: ConversationType[]
   users: User[]
-  userPhone: string
 }
 
 
 const CreateChatButton = ({
   items,
-  userPhone,
   users
 }: CreateChatProps) => {
 
@@ -49,7 +47,6 @@ const CreateChatButton = ({
                       <UserItemChat
                         data={item}
                         selected={conversationId === item.id}
-                        profilePhone={profilePhone}
                       />
                     </CommandItem>
                   ))
