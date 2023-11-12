@@ -9,8 +9,8 @@ import {Mic, Paperclip} from 'lucide-react';
 import { Input } from '../ui/input';
 import EmojiPicker from '../emoji-picker';
 import { Button } from '../ui/button';
-import PaperclipIcon from '../paper-clip';
 import axios from "axios";
+import {useRouter} from "next/navigation";
 
 const formSchema = z.object({
   message: z.string().min(1)
@@ -18,6 +18,7 @@ const formSchema = z.object({
 
 const ChatInput = () => {
   const { conversationId } = useConversations();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -30,11 +31,13 @@ const ChatInput = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+
       await axios.post("/api/messages", {
         ...values,
         conversationId: conversationId
       })
       form.reset();
+      router.refresh();
     } catch (error) {
       console.log(error)
     }

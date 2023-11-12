@@ -3,6 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { ChatCallButton } from "./chat-call-button"
 import { ChatVideoButton } from "./chat-video-button"
+import {Loader2} from "lucide-react";
 
 interface ChatHeaderProps {
   serverId: string
@@ -15,12 +16,14 @@ const ChatHeader = ({
   type,
 }: ChatHeaderProps) => {
   return ( 
-    <div className="text-md font-semibold px-3 flex items-center h-[70px] border-neutral-900 border-b">
+    <div className="text-md font-semibold px-3 flex items-center h-[80px] border-neutral-900 border-b">
       {type === "conversation" && (
         <Avatar className="">
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>
-            CN
+              <Loader2
+                  className="h-4 w-4 text-zinc-500 animate-spin"
+              />
           </AvatarFallback>
         </Avatar>
       )}
