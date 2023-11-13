@@ -20,7 +20,7 @@ const MemberIdPage = async ({
   return ( 
     <div className="bg-zinc-800 flex flex-col h-full">
       <ChatHeader
-        imageUrl={''}
+        imageUrl={''}  
         name={'Juan'}
         serverId={params.conversationId}
         type="conversation"

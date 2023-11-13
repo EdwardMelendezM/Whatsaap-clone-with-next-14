@@ -1,3 +1,4 @@
+'use client'
 import {useEffect, useState} from "react";
 
 interface ChatScrollProps {
@@ -6,33 +7,41 @@ interface ChatScrollProps {
 }
 
 export const useChatScroll = ({
-    chatRef,
-    bottomRef
-}:ChatScrollProps) => {
-    const [hasInitialized, setHasInitialized] = useState(false)
-    useEffect(() => {
-        const bottomDiv = bottomRef?.current
-        const topDiv = chatRef?.current
+                                  chatRef,
+                                  bottomRef
+                              }: ChatScrollProps) => {
+    const [hasInitialized, setHasInitialized] = useState(false);
+    const [distanceFromBottom, setDistanceFromBottom] = useState(0);
 
+    useEffect(() => {
+        const bottomDiv = bottomRef?.current;
+        const topDiv = chatRef?.current;
         const shouldAutoScroll = () => {
-            if(!hasInitialized && bottomDiv) {
-                setHasInitialized(true)
-                return true
+            if (!hasInitialized && bottomDiv) {
+                setHasInitialized(true);
+                return true;
             }
             if (!topDiv) {
-                return false
+                return false;
             }
-            const distanceFromButton = topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight
-            return distanceFromButton < 100
-        }
+            setDistanceFromBottom( topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight)
+            return distanceFromBottom < 100;
+        };
 
         if (shouldAutoScroll()) {
-            setTimeout(()=> {
+            setTimeout(() => {
                 bottomRef.current?.scrollIntoView({
                     behavior: "smooth"
-                })
-            }, 1000)
+                });
+            }, 1000);
         }
+    }, [bottomRef, chatRef, hasInitialized, distanceFromBottom]);
 
-    }, [bottomRef, chatRef]);
-}
+    const onAutoScroll = () => {
+        bottomRef.current?.scrollIntoView({
+            behavior: "smooth"
+        });
+    };
+
+    return { onAutoScroll, distanceFromBottom }
+};
