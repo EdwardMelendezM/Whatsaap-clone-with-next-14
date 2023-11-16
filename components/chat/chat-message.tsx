@@ -40,7 +40,7 @@ const ChatMessages = ({
                         picture: "user.picture"
                     }
                 })
-                
+
                 socketRef.current.on("connect", () => {
                     console.log(socketRef.current.id)
                 })

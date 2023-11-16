@@ -5,7 +5,7 @@ export default function ioHandler(
     req: NextApiResponse,
     res: NextApiResponse
 ) {
-    if(!(res.socket as any).socket.io) {
+    if (!(res.socket as any).server.io) {
         console.log("First use, starting socket io")
 
         const io = new Server((res.socket as any).server)
