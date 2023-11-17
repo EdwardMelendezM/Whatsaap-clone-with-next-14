@@ -43,6 +43,7 @@ const ChatMessages = ({
 
                 socketRef.current.on("connect", () => {
                     console.log(socketRef.current.id)
+                    console.log("Existe")
                 })
             })
     }, []);
