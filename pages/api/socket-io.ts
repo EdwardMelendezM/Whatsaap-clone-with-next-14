@@ -1,5 +1,6 @@
 import {Server} from "socket.io"
-import type { NextApiRequest,  NextApiResponse } from "next";
+import type {  NextApiResponse } from "next";
+import {TYPE_CHAT_EVENT} from "@/dtype";
 
 export default function ioHandler(
     req: NextApiResponse,
@@ -12,6 +13,16 @@ export default function ioHandler(
 
         io.on("connection", socket => {
             console.log(`${socket.id} connected`)
+
+            //Join a conversations
+            const {conversationId} = socket.handshake.query
+            socket.join(conversationId as string)
+            //
+            // io.in(conversationId as string).emit(TYPE_CHAT_EVENT.USER_JOIN_CHAT_EVENT,"CONECTADO" )
+
+            socket.on(TYPE_CHAT_EVENT.NEW_CHAT_MESSAGE_EVENT, message => {
+                io.in(conversationId as string).emit(TYPE_CHAT_EVENT.NEW_CHAT_MESSAGE_EVENT, message)
+            })
         })
     } else {
         console.log("socket io already running")

@@ -6,7 +6,7 @@ import { ChatVideoButton } from "./chat-video-button"
 import {Loader2} from "lucide-react";
 
 interface ChatHeaderProps {
-  serverId: string
+  conversationId: string
   name: string
   type: "channel" | "conversation"
   imageUrl?: string

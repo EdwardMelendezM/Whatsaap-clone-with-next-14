@@ -2,7 +2,7 @@
 
 import {io} from "socket.io-client"
 
-import { MessageType } from "@/dtype";
+import {MessageType, TYPE_CHAT_EVENT} from "@/dtype";
 import useConversations from "@/hook/use-conversations";
 import { ElementRef, Fragment, useEffect, useRef, useState } from "react";
 import ChatItemBox from "./chat-item-box";
@@ -10,43 +10,25 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChatScroll } from "@/hook/use-chat-scroll";
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {User} from "@prisma/client";
 
 interface ChatMessageProps {
     initialMessages: MessageType[];
+    currentUser: User
 }
 
 const ChatMessages = ({
                           initialMessages,
+                          currentUser
                       }: ChatMessageProps) => {
     const [messages, setMessages] = useState(initialMessages);
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
 
-    const socketRef = useRef<any>();
-
-    const { conversationId } = useConversations();
     const { onAutoScroll, distanceFromBottom } = useChatScroll({
         chatRef,
         bottomRef,
     });
-
-    useEffect(() => {
-        fetch("/api/socket-io")
-            .finally(()=>{
-                socketRef.current = io({
-                    query: {
-                        roomId: "name",
-                        user: "name",
-                        picture: "user.picture"
-                    }
-                })
-
-                socketRef.current.on("connect", () => {
-                    console.log(socketRef.current.id)
-                    console.log("Existe")
-                })
-            })
-    }, []);
 
     return (
         <ScrollArea className="relative" ref={chatRef}>

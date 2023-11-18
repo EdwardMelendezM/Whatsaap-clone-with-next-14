@@ -4,7 +4,7 @@ const getMessages = async (
   chatId: string,
 ) => {
   try {
-    const messages = await db.message.findMany({
+    return await db.message.findMany({
       where:{
         conversationId: chatId
       },
@@ -16,8 +16,6 @@ const getMessages = async (
         createdAt: 'asc'
       }
     })
-
-    return messages
   } catch (error: any) {
     return []
   }

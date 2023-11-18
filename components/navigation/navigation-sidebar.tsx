@@ -2,6 +2,7 @@
 import { UserButton } from "@clerk/nextjs";
 import NavigationItem from "./navigation-item";
 import NavigationSetting from "./navigation-config";
+import {useEffect} from "react";
 
 type NavigationRoute = {
   name: string,
@@ -28,6 +29,11 @@ const navigationRoutes: Array<NavigationRoute>  = [
 ]
 
 const NavegationSidebar = () => {
+
+    useEffect(() => {
+       console.log("RENDERED NAVIGATION")
+    }, []);
+
   return ( 
     <div className="space-y-4 flex flex-col items-center h-full text-primary w-full bg-[#1E1F22] py-3">
       <div className="mt-4 flex-1 w-full">

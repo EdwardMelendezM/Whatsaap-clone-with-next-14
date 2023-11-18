@@ -1,7 +1,7 @@
-import ChatHeader from "@/components/chat/chat-header";
-import ChatInput from "@/components/chat/chat-input";
-import ChatMessages from "@/components/chat/chat-message";
-import getConversationById from "@/lib/get-conversations-by-id";
+import TestComponent from "@/components/test";
+import {Chat} from "@/components/chat/chat";
+import {currentUser} from "@clerk/nextjs";
+import {getCurrentUser} from "@/lib/get-current-user";
 import getMessages from "@/lib/get-message";
 
 interface MemberIdPageProps {
@@ -13,25 +13,12 @@ interface MemberIdPageProps {
 const MemberIdPage = async ({
   params
 }: MemberIdPageProps) => {
-
-  const conversation = await getConversationById(params.conversationId)
-  const messages = await getMessages(params.conversationId)
-
-  return ( 
-    <div className="bg-zinc-800 flex flex-col h-full">
-      <ChatHeader
-        imageUrl={''}  
-        name={'Juan'}
-        serverId={params.conversationId}
-        type="conversation"
-      />
-      <ChatMessages
-        initialMessages={messages}
-      />
-      <ChatInput/>
-
-    </div>
-   );
+  const currentUser = await getCurrentUser();
+  const initialMessages = await getMessages(params.conversationId);
+  const conversationId = params.conversationId;
+  return (
+      <Chat messages={initialMessages} currentUser={currentUser} conversationId={conversationId} />
+  );
 }
- 
+
 export default MemberIdPage;

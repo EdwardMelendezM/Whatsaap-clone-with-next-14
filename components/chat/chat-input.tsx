@@ -12,11 +12,17 @@ import { Button } from '../ui/button';
 import axios from "axios";
 import {useRouter} from "next/navigation";
 
+interface ChatInputProps{
+  onSendMessage? : (message:string) => void
+}
+
 const formSchema = z.object({
   message: z.string().min(1)
 })
 
-const ChatInput = () => {
+const ChatInput = ({
+                     onSendMessage
+                   }: ChatInputProps) => {
   const { conversationId } = useConversations();
   const router = useRouter();
 
@@ -37,6 +43,7 @@ const ChatInput = () => {
         conversationId: conversationId
       })
       form.reset();
+      onSendMessage(values.message)
       router.refresh();
     } catch (error) {
       console.log(error)
