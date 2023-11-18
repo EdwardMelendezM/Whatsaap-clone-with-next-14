@@ -53,7 +53,7 @@ export const Chat = ({
                     console.log("El mensaje es", message)
                 })
             })
-    }, [isMounted, socketRef, conversationId]);
+    }, [isMounted, conversationId]);
 
 
     const onSendMessage = (messageBody: string) => {
