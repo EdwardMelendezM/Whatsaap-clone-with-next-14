@@ -13,7 +13,7 @@ import axios from "axios";
 import {useRouter} from "next/navigation";
 
 interface ChatInputProps{
-  onSendMessage? : (message:string) => void
+  onSendMessage : (message:string) => void
 }
 
 const formSchema = z.object({

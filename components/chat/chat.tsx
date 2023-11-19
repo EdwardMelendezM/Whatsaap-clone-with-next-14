@@ -23,7 +23,6 @@ export const Chat = ({
 
 
     useEffect(() => {
-        console.log("RENDERIZADO")
         if(!isMounted) {
             setIsMounted(true)
         }
@@ -40,19 +39,14 @@ export const Chat = ({
                         conversationId
                     }
                 })
-
                 socketRef.current.on("connect", () => {
                     console.log(socketRef.current.id)
                 })
-
-                socketRef.current.on(TYPE_CHAT_EVENT.USER_JOIN_CHAT_EVENT, (message:string) => {
-                    console.log(message)
-                })
-
                 socketRef.current.on(TYPE_CHAT_EVENT.NEW_CHAT_MESSAGE_EVENT, (message: any) => {
                     console.log("El mensaje es", message)
                 })
             })
+        return () => { socketRef.current.disconnect() }
     }, [isMounted, conversationId]);
 
 
