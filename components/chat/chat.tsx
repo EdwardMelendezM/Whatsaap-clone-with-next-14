@@ -32,20 +32,20 @@ export const Chat = ({
         if(!isMounted){
             return
         }
-        fetch("/api/socket-io")
-            .finally(()=>{
-                socketRef.current = io({
-                    query: {
-                        conversationId
-                    }
-                })
-                socketRef.current.on("connect", () => {
-                    console.log(socketRef.current.id)
-                })
-                socketRef.current.on(TYPE_CHAT_EVENT.NEW_CHAT_MESSAGE_EVENT, (message: any) => {
-                    console.log("El mensaje es", message)
-                })
-            })
+        socketRef.current = new (io as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
+            path: "/api/socket-io",
+            addEventListener: false,
+            query: {
+                conversationId
+            }
+        })
+        socketRef.current.on("connect", () => {
+            console.log(socketRef.current.id)
+        })
+        socketRef.current.on(TYPE_CHAT_EVENT.NEW_CHAT_MESSAGE_EVENT, (message: any) => {
+            console.log("El mensaje es", message)
+        })
+
         return () => { socketRef.current.disconnect() }
     }, [isMounted, conversationId]);
 
