@@ -16,7 +16,7 @@ const ChatHeader = ({
   type,
 }: ChatHeaderProps) => {
   return ( 
-    <div className="text-md font-semibold px-3 flex items-center h-[80px] border-neutral-900 border-b">
+    <div className="text-md font-semibold flex items-center h-[80px] border-neutral-900 border-b py-4 px-5">
       {type === "conversation" && (
         <Avatar className="">
           <AvatarImage src="https://github.com/shadcn.png" />

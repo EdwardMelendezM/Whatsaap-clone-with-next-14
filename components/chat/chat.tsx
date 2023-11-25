@@ -4,14 +4,13 @@ import ChatMessages from "@/components/chat/chat-message";
 import ChatInput from "@/components/chat/chat-input";
 import {MessageType, TYPE_CHAT_EVENT} from "@/dtype";
 import {User} from "@prisma/client";
-import {useEffect, useRef, useState} from "react";
-import {io} from "socket.io-client";
+import {useEffect, useState} from "react";
+import {useSocket} from "@/components/providers/socket-provider";
 
 interface ChatProps {
     messages:MessageType[];
     currentUser: User
     conversationId: string
-
 }
 export const Chat = ({
                          currentUser,
@@ -19,8 +18,10 @@ export const Chat = ({
                          messages
                      }: ChatProps) => {
     const [isMounted, setIsMounted] = useState(false)
-    const socketRef = useRef<any>();
+    const [dynamicMessages, setDynamicMessages] = useState([])
+    const { socket } = useSocket()
 
+    const addMessageKey = `chat:${conversationId}:message:update`
 
     useEffect(() => {
         if(!isMounted) {
@@ -32,30 +33,25 @@ export const Chat = ({
         if(!isMounted){
             return
         }
-        socketRef.current = new (io as any)(process.env.NEXT_PUBLIC_SITE_URL!, {
-            path: "/api/socket-io",
-            addEventListener: false,
-            query: {
-                conversationId
-            }
-        })
-        socketRef.current.on("connect", () => {
-            console.log(socketRef.current.id)
-        })
-        socketRef.current.on(TYPE_CHAT_EVENT.NEW_CHAT_MESSAGE_EVENT, (message: any) => {
-            console.log("El mensaje es", message)
+        if (!socket) {
+            return;
+        }
+
+        socket.on(addMessageKey, (message:any) => {
+            console.log(message)
         })
 
-        return () => { socketRef.current.disconnect() }
-    }, [isMounted, conversationId]);
+        return () => {
+            socket.off(addMessageKey)
+        }
+
+    }, [isMounted, conversationId, socket]);
 
 
-    const onSendMessage = (messageBody: string) => {
-        if(!socketRef.current) return
-        socketRef.current.emit(TYPE_CHAT_EVENT.NEW_CHAT_MESSAGE_EVENT, {
-            body: messageBody,
-        })
-    }
+    useEffect(() => {
+
+
+    }, []);
 
     return (
         <div className="bg-zinc-800 flex flex-col h-full">
@@ -69,7 +65,7 @@ export const Chat = ({
                 initialMessages={messages}
                 currentUser={currentUser}
             />
-            <ChatInput onSendMessage={onSendMessage} />
+            <ChatInput />
         </div>
     )
 }

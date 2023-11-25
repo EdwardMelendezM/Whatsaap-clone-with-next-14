@@ -35,7 +35,9 @@ const ChatMessages = ({
             <div className="flex-1 overflow-y-auto flex flex-col mt-3 mb-5">
                 {messages.map((message, i) => (
                     <Fragment key={message.id}>
-                        <ChatItemBox isLast={i === messages.length - 1} data={message} key={message.id} />
+                        <ChatItemBox isLast={i === messages.length - 1}
+                                     data={message}
+                                     key={message.id} />
                     </Fragment>
                 ))}
                 { distanceFromBottom && (

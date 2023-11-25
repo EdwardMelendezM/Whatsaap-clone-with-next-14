@@ -11,9 +11,12 @@ import EmojiPicker from '../emoji-picker';
 import { Button } from '../ui/button';
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import {useSocket} from "@/components/providers/socket-provider";
+import {useEffect} from "react";
+import {TYPE_CHAT_EVENT} from "@/dtype";
 
 interface ChatInputProps{
-  onSendMessage : (message:string) => void
+  onSendMessage? : (message:string) => void
 }
 
 const formSchema = z.object({
@@ -21,10 +24,11 @@ const formSchema = z.object({
 })
 
 const ChatInput = ({
-                     onSendMessage
+
                    }: ChatInputProps) => {
   const { conversationId } = useConversations();
   const router = useRouter();
+  const { socket } = useSocket();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -33,17 +37,19 @@ const ChatInput = ({
     }
   })
 
+
+
   const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
 
-      await axios.post("/api/messages", {
+      await axios.post("/api/socket/new-message", {
         ...values,
         conversationId: conversationId
       })
       form.reset();
-      onSendMessage(values.message)
+      // onSendMessage(values.message)
       router.refresh();
     } catch (error) {
       console.log(error)
