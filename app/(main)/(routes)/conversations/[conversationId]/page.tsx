@@ -17,7 +17,9 @@ const MemberIdPage = async ({
   const initialMessages = await getMessages(params.conversationId);
   const conversationId = params.conversationId;
   return (
-      <Chat messages={initialMessages} currentUser={currentUser} conversationId={conversationId} />
+      <Chat messages={initialMessages}
+            currentUser={currentUser}
+            conversationId={conversationId} />
   );
 }
 

@@ -17,8 +17,8 @@ export const Chat = ({
                          conversationId,
                          messages
                      }: ChatProps) => {
+    const [messagesData, setMessagesData] = useState(messages)
     const [isMounted, setIsMounted] = useState(false)
-    const [dynamicMessages, setDynamicMessages] = useState([])
     const { socket } = useSocket()
 
     const addMessageKey = `chat:${conversationId}:message:update`
@@ -36,11 +36,10 @@ export const Chat = ({
         if (!socket) {
             return;
         }
-
         socket.on(addMessageKey, (message:any) => {
-            console.log(message)
+            console.log('message', message)
+            setMessagesData((messagesData) => [...messagesData, message])
         })
-
         return () => {
             socket.off(addMessageKey)
         }
@@ -62,7 +61,7 @@ export const Chat = ({
                 type="conversation"
             />
             <ChatMessages
-                initialMessages={messages}
+                initialMessages={messagesData}
                 currentUser={currentUser}
             />
             <ChatInput />
