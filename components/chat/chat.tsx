@@ -17,41 +17,6 @@ export const Chat = ({
                          conversationId,
                          messages
                      }: ChatProps) => {
-    const [messagesData, setMessagesData] = useState(messages)
-    const [isMounted, setIsMounted] = useState(false)
-    const { socket } = useSocket()
-
-    const addMessageKey = `chat:${conversationId}:message:update`
-
-    useEffect(() => {
-        if(!isMounted) {
-            setIsMounted(true)
-        }
-    }, [isMounted]);
-
-    useEffect(() => {
-        if(!isMounted){
-            return
-        }
-        if (!socket) {
-            return;
-        }
-        socket.on(addMessageKey, (message:any) => {
-            console.log('message', message)
-            setMessagesData((messagesData) => [...messagesData, message])
-        })
-        return () => {
-            socket.off(addMessageKey)
-        }
-
-    }, [isMounted, conversationId, socket]);
-
-
-    useEffect(() => {
-
-
-    }, []);
-
     return (
         <div className="bg-zinc-800 flex flex-col h-full">
             <ChatHeader
@@ -61,8 +26,9 @@ export const Chat = ({
                 type="conversation"
             />
             <ChatMessages
-                initialMessages={messagesData}
+                initialMessages={messages}
                 currentUser={currentUser}
+                conversationId={conversationId}
             />
             <ChatInput />
         </div>
