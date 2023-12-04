@@ -1,6 +1,4 @@
-import TestComponent from "@/components/test";
 import {Chat} from "@/components/chat/chat";
-import {currentUser} from "@clerk/nextjs";
 import {getCurrentUser} from "@/lib/get-current-user";
 import getMessages from "@/lib/get-message";
 

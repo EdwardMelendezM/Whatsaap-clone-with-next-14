@@ -2,10 +2,8 @@
 import ChatHeader from "@/components/chat/chat-header";
 import ChatMessages from "@/components/chat/chat-message";
 import ChatInput from "@/components/chat/chat-input";
-import {MessageType, TYPE_CHAT_EVENT} from "@/dtype";
+import {MessageType} from "@/dtype";
 import {User} from "@prisma/client";
-import {useEffect, useState} from "react";
-import {useSocket} from "@/components/providers/socket-provider";
 
 interface ChatProps {
     messages:MessageType[];

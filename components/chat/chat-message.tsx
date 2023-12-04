@@ -1,17 +1,15 @@
 'use client'
-
-import {io} from "socket.io-client"
-
-import {MessageType, TYPE_CHAT_EVENT} from "@/dtype";
-import useConversations from "@/hook/use-conversations";
 import { ElementRef, Fragment, useEffect, useRef, useState } from "react";
-import ChatItemBox from "./chat-item-box";
+import { ArrowDown } from "lucide-react";
+
+import {User} from "@prisma/client";
+import {MessageType} from "@/dtype";
+
+import { Button } from "@/components/ui/button";
+import ChatItemBox from "@/components/chat/chat-item-box";
+import {useSocket} from "@/components/providers/socket-provider";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useChatScroll } from "@/hook/use-chat-scroll";
-import { ArrowDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {User} from "@prisma/client";
-import {useSocket} from "@/components/providers/socket-provider";
 
 interface ChatMessageProps {
     initialMessages: MessageType[];
@@ -28,15 +26,15 @@ const ChatMessages = ({
     const chatRef = useRef<ElementRef<"div">>(null);
     const bottomRef = useRef<ElementRef<"div">>(null);
 
-    const { onAutoScroll, distanceFromBottom } = useChatScroll({
+    useChatScroll({
         chatRef,
         bottomRef,
     });
+    const distanceFromBottom = false
 
     const [messagesData, setMessagesData] = useState(messages)
     const [isMounted, setIsMounted] = useState(false)
     const { socket } = useSocket()
-
     const addMessageKey = `chat:${conversationId}:message:update`
 
     useEffect(() => {
@@ -53,7 +51,6 @@ const ChatMessages = ({
             return;
         }
         socket.on(addMessageKey, (message:any) => {
-            console.log('message', message)
             setMessagesData((messagesData) => [...messagesData, message])
         })
         return () => {
@@ -73,9 +70,8 @@ const ChatMessages = ({
                     </Fragment>
                 ))}
                 { distanceFromBottom && (
-                    <Button
-                        className="absolute bottom-12 right-4 bg-zinc-700 px-2"
-                        onClick={onAutoScroll}
+                    <Button className="absolute bottom-12 right-4 bg-zinc-700 px-2"
+                            onClick={()=>{}}
                     >
                         <ArrowDown className="w-6 h-6 text-gray-200" />
                     </Button>

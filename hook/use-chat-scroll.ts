@@ -11,7 +11,6 @@ export const useChatScroll = ({
                                   bottomRef
                               }: ChatScrollProps) => {
     const [hasInitialized, setHasInitialized] = useState(false);
-    const [distanceFromBottom, setDistanceFromBottom] = useState(0);
 
     useEffect(() => {
         const bottomDiv = bottomRef?.current;
@@ -24,8 +23,9 @@ export const useChatScroll = ({
             if (!topDiv) {
                 return false;
             }
-            setDistanceFromBottom( topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight)
-            return distanceFromBottom < 100;
+            const isSmallSpace =  topDiv.scrollHeight - topDiv.scrollTop - topDiv.clientHeight
+            console.log(isSmallSpace)
+            return isSmallSpace < 100;
         };
 
         if (shouldAutoScroll()) {
@@ -35,13 +35,5 @@ export const useChatScroll = ({
                 });
             }, 1000);
         }
-    }, [bottomRef, chatRef, hasInitialized, distanceFromBottom]);
-
-    const onAutoScroll = () => {
-        bottomRef.current?.scrollIntoView({
-            behavior: "smooth"
-        });
-    };
-
-    return { onAutoScroll, distanceFromBottom }
+    }, [bottomRef, chatRef, hasInitialized]);
 };
