@@ -6,7 +6,17 @@ import {useSession} from "@clerk/nextjs"
 import {useRef, useState} from "react"
 import {format} from "date-fns"
 
-import {ArrowLeftSquare, CheckCheckIcon, CopyIcon,} from "lucide-react";
+import {
+  Angry,
+  ArrowLeftSquare,
+  CheckCheckIcon,
+  CopyIcon,
+  Heart,
+  Laugh,
+  PencilIcon,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
 
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
@@ -47,7 +57,7 @@ const ChatItemBox = ({
   const copyText = (text: string | undefined | null ) => {
     if(!text) return
     navigator.clipboard.writeText(text)
-    popoverRef.current?.onCloseAutoFocus()
+    // popoverRef.current?.onCloseAutoFocus()
   };
 
 
@@ -110,7 +120,14 @@ const ChatItemBox = ({
             </PopoverTrigger>
             <PopoverContent ref={popoverRef} className="w-[280px] bg-zinc-800/90 border-none shadow-lg" align="center">
               <div className="flex flex-col py-2">
-                <Separator className="mb-2 border-gray-600 border-b-2" />
+                <div className="flex gap-x-2 items-center justify-around p-2">
+                  <ThumbsDown  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
+                  <ThumbsUp  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
+                  <Heart  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
+                  <Laugh  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
+                  <Angry  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
+                </div>
+                <Separator className="my-1 border-gray-600 border-b-2" />
                 <Button variant="ghost" className="hover:bg-zinc-700 flex items-center justify-start">
                   <ArrowLeftSquare className="w-5 h-5 text-gray-300" />
                   <p className="text-zinc-300 text-start ml-2">
@@ -123,6 +140,15 @@ const ChatItemBox = ({
                   <CopyIcon className="w-5 h-5 text-gray-300" />
                   <p className="text-zinc-300 text-start ml-2">
                     Copiar
+                  </p>
+                </Button>
+                <Separator className="my-1 border-gray-600 border-b-2" />
+                <Button variant="ghost"
+                        onClick={()=>copyText(data?.body)}
+                        className="hover:bg-zinc-700 flex items-center justify-start">
+                  <PencilIcon className="w-5 h-5 text-gray-300" />
+                  <p className="text-zinc-300 text-start ml-2">
+                    Editar
                   </p>
                 </Button>
               </div>

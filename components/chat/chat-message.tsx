@@ -101,7 +101,7 @@ const ChatMessages = ({
                     </Button>
                 )}
             </div>
-            <div ref={bottomRef} />
+            <div ref={bottomRef} className="pb-4" />
         </ScrollArea>
     );
 };
