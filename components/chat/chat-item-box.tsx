@@ -21,6 +21,14 @@ import {
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 import {Button} from "@/components/ui/button";
 import {Separator} from "@/components/ui/separator";
+import {
+  Menubar,
+  MenubarContent,
+  MenubarItem,
+  MenubarMenu, MenubarSeparator,
+  MenubarShortcut,
+  MenubarTrigger
+} from "@/components/ui/menubar";
 
 interface ChatInputBoxProps{
   data: MessageType
@@ -90,19 +98,62 @@ const ChatItemBox = ({
 
       <div className={container}>
         <div className={body}>
-          <Popover>
-            <PopoverTrigger asChild>
               <div>
-                <div className={message}>
-                  {data.body}
-                  {
-                      isLast && isOwn && seenList.length > 0 && (
-                          <div className="text-xs font-light text-gray-400">
-                            {`Visto by ${seenList}`}
-                          </div>
-                      )
-                  }
-                </div>
+                <Menubar>
+                  <MenubarMenu>
+                    <MenubarTrigger className="bg-transparent  m-0 p-0 border-0">
+                      <div className={message}>
+                        {data.body}
+                        {
+                            isLast && isOwn && seenList.length > 0 && (
+                                <div className="text-xs font-light text-gray-400">
+                                  {`Visto by ${seenList}`}
+                                </div>
+                            )
+                        }
+                      </div>
+                    </MenubarTrigger>
+                    <MenubarContent className="bg-zinc-800/90 border border-zinc-700 shadow-xl">
+                      <div className="flex justify-around">
+                        <MenubarItem>
+                          <ThumbsUp  className=" w-10 h-10 text-gray-400  rounded-xl p-2  cursor-pointer" />
+                        </MenubarItem>
+                        <MenubarItem>
+                          <ThumbsDown  className=" w-10 h-10 text-gray-400  rounded-xl p-2 cursor-pointer" />
+                        </MenubarItem>
+                        <MenubarItem>
+                          <Heart  className=" w-10 h-10 text-gray-400  rounded-xl p-2  cursor-pointer" />
+                        </MenubarItem>
+                        <MenubarItem>
+                          <Laugh  className=" w-10 h-10 text-gray-400  rounded-xl p-2  cursor-pointer" />
+                        </MenubarItem>
+                        <MenubarItem>
+                          <Angry  className=" w-10 h-10 text-gray-400  rounded-xl p-2  cursor-pointer" />
+                        </MenubarItem>
+                      </div>
+                      <MenubarSeparator />
+                      <MenubarItem className="p-4">
+                        <ArrowLeftSquare className="w-5 h-5 text-gray-300" />
+                        <p className="text-zinc-300 text-start ml-2">
+                          Responder
+                        </p>
+                      </MenubarItem>
+                      <MenubarItem className="p-4">
+                        <CopyIcon className="w-5 h-5 text-gray-300" />
+                        <p className="text-zinc-300 text-start ml-2">
+                          Copiar
+                        </p>
+                      </MenubarItem>
+                      <MenubarItem className="p-4">
+                        <PencilIcon className="w-5 h-5 text-gray-300" />
+                        <p className="text-zinc-300 text-start ml-2">
+                          Editar
+                        </p>
+                      </MenubarItem>
+                    </MenubarContent>
+                  </MenubarMenu>
+                </Menubar>
+
                 <div className="absolute text-xs text-gray-400 bottom-1 right-2 flex gap-x-1">
                   {format(new Date(data.createdAt), 'HH:mm')}
                   {
@@ -117,43 +168,6 @@ const ChatItemBox = ({
                   }
                 </div>
               </div>
-            </PopoverTrigger>
-            <PopoverContent ref={popoverRef} className="w-[280px] bg-zinc-800/90 border-none shadow-lg" align="center">
-              <div className="flex flex-col py-2">
-                <div className="flex gap-x-2 items-center justify-around p-2">
-                  <ThumbsDown  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
-                  <ThumbsUp  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
-                  <Heart  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
-                  <Laugh  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
-                  <Angry  className=" w-10 h-10 text-gray-400  rounded-xl p-2 hover:bg-gray-700 cursor-pointer" />
-                </div>
-                <Separator className="my-1 border-gray-600 border-b-2" />
-                <Button variant="ghost" className="hover:bg-zinc-700 flex items-center justify-start">
-                  <ArrowLeftSquare className="w-5 h-5 text-gray-300" />
-                  <p className="text-zinc-300 text-start ml-2">
-                    Responder
-                  </p>
-                </Button>
-                <Button variant="ghost"
-                        onClick={()=>copyText(data?.body)}
-                        className="hover:bg-zinc-700 flex items-center justify-start">
-                  <CopyIcon className="w-5 h-5 text-gray-300" />
-                  <p className="text-zinc-300 text-start ml-2">
-                    Copiar
-                  </p>
-                </Button>
-                <Separator className="my-1 border-gray-600 border-b-2" />
-                <Button variant="ghost"
-                        onClick={()=>copyText(data?.body)}
-                        className="hover:bg-zinc-700 flex items-center justify-start">
-                  <PencilIcon className="w-5 h-5 text-gray-300" />
-                  <p className="text-zinc-300 text-start ml-2">
-                    Editar
-                  </p>
-                </Button>
-              </div>
-            </PopoverContent>
-          </Popover>
         </div>
       </div>
    );
