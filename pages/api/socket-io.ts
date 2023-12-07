@@ -1,11 +1,7 @@
-import {Server} from "socket.io"
-import type {NextApiRequest, NextApiResponse} from "next";
-import {NextApiResponseServerIo, TYPE_CHAT_EVENT} from "@/dtype";
+import type {NextApiRequest} from "next";
+import {NextApiResponseServerIo} from "@/dtype";
 import {Server as NetServer} from "http";
 import { Server as ServerIO } from "socket.io"
-import {getCurrentUserPages} from "@/lib/get-current-user-pages";
-import {NextResponse} from "next/server";
-import {db} from "@/lib/db";
 
 export default async function ioHandler(
     req: NextApiRequest,
