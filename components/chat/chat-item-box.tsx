@@ -142,11 +142,6 @@ const ChatItemBox = ({
                             )
 
                     }
-
-                    isOwn && isEditing (
-
-                    )
-
                     <div className="absolute text-xs text-gray-400 bottom-1 right-2 flex gap-x-1">
                         {format(new Date(data.createdAt), 'HH:mm')}
                         {
