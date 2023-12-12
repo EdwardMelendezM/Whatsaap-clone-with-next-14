@@ -118,7 +118,8 @@ const ChatItemBox = ({
                                                     Copiar
                                                 </p>
                                             </MenubarItem>
-                                            <MenubarItem className="p-4">
+                                            <MenubarItem className="p-4"
+                                            onClick={()=> setIsEditing(true)}>
                                                 <PencilIcon className="w-5 h-5 text-gray-300"/>
                                                 <p className="text-zinc-300 text-start ml-2">
                                                     Editar
@@ -141,6 +142,14 @@ const ChatItemBox = ({
                                 </div>
                             )
 
+                    }
+
+                    {
+                        isOwn && isEditing && (
+                            <div className="absolute bottom-0 right-0">
+                                <textarea className="w-48 h-24 bg-zinc-800/90 text-zinc-300 rounded-md p-2 resize-none"/>
+                            </div>
+                        )
                     }
                     <div className="absolute text-xs text-gray-400 bottom-1 right-2 flex gap-x-1">
                         {format(new Date(data.createdAt), 'HH:mm')}
