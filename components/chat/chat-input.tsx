@@ -15,20 +15,15 @@ import {useSocket} from "@/components/providers/socket-provider";
 import {useEffect} from "react";
 import {TYPE_CHAT_EVENT} from "@/dtype";
 
-interface ChatInputProps{
-  onSendMessage? : (message:string) => void
-}
+
 
 const formSchema = z.object({
   message: z.string().min(1)
 })
 
-const ChatInput = ({
-
-                   }: ChatInputProps) => {
+const ChatInput = () => {
   const { conversationId } = useConversations();
   const router = useRouter();
-  const { socket } = useSocket();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
