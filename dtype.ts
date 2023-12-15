@@ -30,3 +30,7 @@ export type NextApiResponseServerIo = NextApiResponse & {
     }
   }
 }
+
+export type Aux = {
+    [key: string]: any
+}
