@@ -4,7 +4,7 @@ import {db} from "@/lib/db";
 
 export async function POST(
     request: Request
-){
+) {
     try {
         const currentUser = await getCurrentUser()
         const body = await request.json()
@@ -15,13 +15,13 @@ export async function POST(
             conversationId
         } = body
 
-        if(!currentUser?.id || !currentUser?.phone){
-            return new NextResponse("Unauthorized", {status:401})
+        if (!currentUser?.id || !currentUser?.phone) {
+            return new NextResponse("Unauthorized", {status: 401})
         }
 
         const newMessage = await db.message.create({
             include: {
-                seen:true,
+                seen: true,
                 sender: true,
             },
             data: {
@@ -45,7 +45,7 @@ export async function POST(
             }
         })
 
-        const updatedConvesation = await db.conversation.update({
+        await db.conversation.update({
             where: {
                 id: conversationId
             },
@@ -59,7 +59,7 @@ export async function POST(
             },
             include: {
                 users: true,
-                messages : {
+                messages: {
                     include: {
                         seen: true
                     }
@@ -70,7 +70,53 @@ export async function POST(
         return NextResponse.json(newMessage)
     } catch (error) {
         console.log(error, "[ERROR_MESSAGE]")
-        return new NextResponse("Internal Server Error", { status: 500 })
+        return new NextResponse("Internal Server Error", {status: 500})
+    }
+
+}
+
+
+export async function PUT(
+    request: Request
+) {
+    try {
+        const currentUser = await getCurrentUser()
+        const body = await request.json()
+
+        const {
+            messageId,
+            conversationId,
+            message
+        } = body
+
+        if (!currentUser?.id || !currentUser?.phone) {
+            return new NextResponse("Unauthorized", {status: 401})
+        }
+
+        const updateMessage = await db.message.update({
+            where: {
+                id: messageId
+            },
+            data: {
+                body: {
+                    message
+                },
+                conversation: {
+                    connect: {
+                        id: conversationId
+                    }
+                },
+            },
+            include: {
+                seen: true,
+                sender: true,
+            }
+        })
+
+        return NextResponse.json(updateMessage)
+    } catch (error) {
+        console.log(error, "[ERROR_UPDATE_MESSAGE]")
+        return new NextResponse("Internal Server Error", {status: 500})
     }
 
 }
