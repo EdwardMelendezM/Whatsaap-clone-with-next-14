@@ -11,10 +11,6 @@ import EmojiPicker from '../emoji-picker';
 import { Button } from '../ui/button';
 import axios from "axios";
 import {useRouter} from "next/navigation";
-import {useSocket} from "@/components/providers/socket-provider";
-import {useEffect} from "react";
-import {TYPE_CHAT_EVENT} from "@/dtype";
-
 
 
 const formSchema = z.object({
@@ -85,8 +81,7 @@ const ChatInput = () => {
                     <Button
                         variant={"ghost"}
                         type="button"
-                        className="hover:bg-zinc-700 h-full"
-                    >
+                        className="hover:bg-zinc-700 h-full">
                       <Mic className="hover:bg-zinc-700 text-zinc-300 transparent w-5 h-5" />
                     </Button>
                   </div>
