@@ -3,12 +3,8 @@
 import {MessageType} from "@/dtype"
 import {cn} from "@/lib/utils"
 import {useSession} from "@clerk/nextjs"
-import {useEffect, useRef, useState} from "react"
+import {useEffect, useState} from "react"
 import {format} from "date-fns"
-
-const formSchema = z.object({
-    message: z.string().min(1)
-})
 
 import {
     Angry,
@@ -32,6 +28,14 @@ import {
 import * as z from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {Form, FormControl, FormField, FormItem} from "@/components/ui/form";
+import axios from "axios";
+import {useRouter} from "next/navigation";
+
+const formSchema = z.object({
+    message: z.string().min(1)
+})
+
 
 interface ChatInputBoxProps {
     data: MessageType
@@ -42,7 +46,9 @@ const ChatItemBox = ({
                          data,
                          isLast
                      }: ChatInputBoxProps) => {
+    const [isLoading, setIsLoading] = useState(false)
     const [isEditing, setIsEditing] = useState(false);
+    const router = useRouter();
 
     const session = useSession()
 
@@ -71,9 +77,25 @@ const ChatItemBox = ({
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            message: ''
+            message: data.body ?? ""
         }
     })
+
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
+        try {
+            setIsLoading(true)
+            await axios.put(`/api/socket/message/${data.id}`, {
+                ...values,
+                conversationId: data.conversationId,
+            })
+            data.body = values.message
+            setIsEditing(false)
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     useEffect(() => {
         const handleEsc = (event: KeyboardEvent) => {
@@ -172,9 +194,25 @@ const ChatItemBox = ({
                     }
                     {
                         isOwn && isEditing && (
-                            <input type="text"
-                                   defaultValue={`${data.body}`}
-                                   className="bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-200 bg-zinc-700 placeholder:text-gray-300 py-2 px-3 text-sm rounded"/>
+                            <Form {...form} >
+                                <form onSubmit={form.handleSubmit(onSubmit)}>
+                                    <FormField
+                                        control={form.control}
+                                        name={'message'}
+                                        render={({field}) => (
+                                            <FormItem>
+                                                <FormControl>
+                                                    <input
+                                                        {...field}
+                                                        disabled={isLoading}
+                                                        className="bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-200 bg-zinc-700 placeholder:text-gray-300 py-2 px-3 text-sm rounded"
+                                                    />
+                                                </FormControl>
+                                            </FormItem>
+                                        )}/>
+                                </form>
+                            </Form>
+
                         )
                     }
                     <div className="absolute text-xs text-gray-400 bottom-1 right-2 flex gap-x-1">
