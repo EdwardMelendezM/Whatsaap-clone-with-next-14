@@ -64,8 +64,9 @@ const ChatItemBox = ({
         isOwn && "items-end bg-emerald-900",
         isEditing && "bg-zinc-700",)
 
-    const message = cn("text-sm w-fit h-fit text-gray-300",
-        data.image ? "rounded-md p-0" : "rounded-full py-2 px-3"
+    const message = cn("text-sm w-fit h-fit",
+        data.image ? "rounded-md p-0" : "rounded-full py-2 px-3",
+        data.isDeleted ? "italic text-gray-400" : "text-gray-300"
     );
 
 
@@ -80,6 +81,19 @@ const ChatItemBox = ({
             message: data.body ?? ""
         }
     })
+
+    const onDeleteMessage = async () => {
+        try {
+            setIsLoading(true)
+            await axios.delete(`/api/socket/message/${data.id}`)
+            data.isDeleted = true
+            router.refresh()
+        } catch (error) {
+            console.log(error)
+        } finally {
+            setIsLoading(false)
+        }
+    }
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
@@ -115,7 +129,7 @@ const ChatItemBox = ({
             <div className={body}>
                 <div>
                     {
-                        isOwn && !isEditing && (
+                        isOwn && !isEditing && !data.isDeleted && (
                             <Menubar>
                                 <MenubarMenu>
                                     <MenubarTrigger className="bg-transparent  m-0 p-0 border-0">
@@ -173,6 +187,13 @@ const ChatItemBox = ({
                                                 Editar
                                             </p>
                                         </MenubarItem>
+                                        <MenubarItem className="p-4"
+                                                     onClick={() => onDeleteMessage()}>
+                                            <PencilIcon className="w-5 h-5 text-gray-300"/>
+                                            <p className="text-zinc-300 text-start ml-2">
+                                                Eliminar
+                                            </p>
+                                        </MenubarItem>
                                     </MenubarContent>
                                 </MenubarMenu>
                             </Menubar>
@@ -182,6 +203,20 @@ const ChatItemBox = ({
                         !isOwn && !isEditing && (
                             <div className={message}>
                                 {data.body}
+                                {
+                                    isLast && isOwn && seenList.length > 0 && (
+                                        <div className="text-xs font-light text-gray-400">
+                                            {`Visto by ${seenList}`}
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        )
+                    }
+                    {
+                        isOwn && data.isDeleted && (
+                            <div className={message}>
+                                Mensaje eliminado
                                 {
                                     isLast && isOwn && seenList.length > 0 && (
                                         <div className="text-xs font-light text-gray-400">
