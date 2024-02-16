@@ -28,8 +28,6 @@ const ChatInput = () => {
     }
   })
 
-
-
   const isLoading = form.formState.isSubmitting
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {

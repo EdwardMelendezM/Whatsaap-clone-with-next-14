@@ -1,15 +1,18 @@
 "use client"
+
+import {User} from "@prisma/client";
+
 import ChatHeader from "@/components/chat/chat-header";
 import ChatMessages from "@/components/chat/chat-message";
 import ChatInput from "@/components/chat/chat-input";
 import {MessageType} from "@/dtype";
-import {User} from "@prisma/client";
 
 interface ChatProps {
-    messages:MessageType[];
+    messages: MessageType[];
     currentUser: User
     conversationId: string
 }
+
 export const Chat = ({
                          currentUser,
                          conversationId,
@@ -18,8 +21,8 @@ export const Chat = ({
     return (
         <div className="bg-zinc-800 flex flex-col h-full">
             <ChatHeader
-                imageUrl={''}
-                name={'Juan'}
+                imageUrl={currentUser.imageUrl}
+                name={currentUser.name}
                 conversationId={conversationId}
                 type="conversation"
             />
@@ -28,7 +31,7 @@ export const Chat = ({
                 currentUser={currentUser}
                 conversationId={conversationId}
             />
-            <ChatInput />
+            <ChatInput/>
         </div>
     )
 }
