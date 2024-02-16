@@ -16,7 +16,8 @@ interface ChatHeaderProps {
 const ChatHeader = ({
                         name,
                         type,
-                        imageUrl
+                        imageUrl,
+                        conversationId
                     }: ChatHeaderProps) => {
     return (
         <div className="text-md font-semibold flex items-center h-[80px] border-neutral-900 border-b py-4 px-5">
@@ -42,8 +43,8 @@ const ChatHeader = ({
             <div className="ml-auto flex items-center">
                 {type === "conversation" && (
                     <div>
-                        <ChatVideoButton/>
-                        <ChatCallButton/>
+                        <ChatVideoButton conversationId={conversationId}/>
+                        <ChatCallButton conversationId={conversationId}/>
                     </div>
                 )}
             </div>
