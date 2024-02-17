@@ -22,7 +22,7 @@ const SidebarChat = async () => {
           items={conversations}
           users={users}
         />
-        <FilterButtonChat />
+        {/*<FilterButtonChat />*/}
       </div>
       <div className="px-4 flex-1">
         <ListChat
