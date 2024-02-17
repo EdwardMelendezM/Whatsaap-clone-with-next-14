@@ -26,18 +26,18 @@ export const MediaRoom = ({
         const name = currentUser.name;
         (async () => {
             try {
-                const response = await fetch(`/api/livekit?room=${conversationId}&username=${name}`)
-                const data = await response.json()
-                setToken(data.token)
+                const resp = await fetch(`/api/livekit?room=${conversationId}&username=${name}`);
+                const data = await resp.json();
+                setToken(data.token);
             } catch (e) {
-                console.log(e)
+                console.log(e);
             }
-        })
-    }, [currentUser.name]);
+        })()
+    }, [conversationId, currentUser.name]);
 
     if (token === '') {
         return (
-            <div className='flex flex-col flex-1 justify-center items-center'>
+            <div className='h-full flex flex-col flex-1 justify-center items-center'>
                 <Loader2 className='h-7 w-7 text-zinc-500 animate-spin my-4'/>
                 <p className='text-xs text-zinc-500 dark:text-zinc-400'>
                     Loading...
