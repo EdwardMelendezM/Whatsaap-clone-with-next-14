@@ -15,9 +15,9 @@ const CallIdPage = async ({
     return (
         <div className="h-full flex flex-col justify-center items-center">
             <MediaRoom conversationId={callId}
-                          currentUser={currentUser}
-                          audio={true}
-                          video={false}/>
+                       currentUser={currentUser}
+                       audio={true}
+                       video={false}/>
         </div>
 
     );

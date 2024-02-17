@@ -1,7 +1,7 @@
 "use client"
 
-import {useEffect, useState} from "react"
 import {User} from "@prisma/client";
+import {useEffect, useState} from "react"
 import {LiveKitRoom, VideoConference} from "@livekit/components-react";
 import "@livekit/components-styles"
 
@@ -49,13 +49,12 @@ export const MediaRoom = ({
 
     return (
         <LiveKitRoom
-            data-lk-token='default'
+            data-lk-theme="default"
             serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
             token={token}
             connect={true}
             audio={audio}
-            video={video}
-        >
+            video={video}>
             <VideoConference/>
         </LiveKitRoom>
     )
