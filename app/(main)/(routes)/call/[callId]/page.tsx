@@ -1,4 +1,5 @@
 import {getCurrentUser} from "@/lib/get-current-user";
+import {MediaRoom} from "@/components/call/media-room";
 
 interface CallIdPageProps {
     params: {
@@ -13,7 +14,10 @@ const CallIdPage = async ({
     const conversationId = params.conversationId;
     return (
         <>
-            Hello, {currentUser.name}!
+            <MediaRoom conversationId={conversationId}
+                          currentUser={currentUser}
+                          audio={true}
+                          video={false}/>
         </>
 
     );
