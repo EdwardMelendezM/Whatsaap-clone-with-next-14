@@ -200,9 +200,23 @@ const ChatItemBox = ({
                         )
                     }
                     {
-                        !isOwn && !isEditing && (
+                        !isOwn && !isEditing && !data.isDeleted && (
                             <div className={message}>
                                 {data.body}
+                                {
+                                    isLast && isOwn && seenList.length > 0 && (
+                                        <div className="text-xs font-light text-gray-400">
+                                            {`Visto by ${seenList}`}
+                                        </div>
+                                    )
+                                }
+                            </div>
+                        )
+                    }
+                    {
+                        !isOwn && !isEditing && data.isDeleted && (
+                            <div className={message}>
+                                Mensaje eliminado
                                 {
                                     isLast && isOwn && seenList.length > 0 && (
                                         <div className="text-xs font-light text-gray-400">
