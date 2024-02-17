@@ -3,7 +3,7 @@ import {MediaRoom} from "@/components/call/media-room";
 
 interface CallIdPageProps {
     params: {
-        conversationId: string;
+        callId: string;
     }
 }
 
@@ -11,14 +11,14 @@ const CallIdPage = async ({
                               params
                           }: CallIdPageProps) => {
     const currentUser = await getCurrentUser();
-    const conversationId = params.conversationId;
+    const callId = params.callId;
     return (
-        <>
-            <MediaRoom conversationId={conversationId}
-                          currentUser={currentUser}
-                          audio={true}
-                          video={false}/>
-        </>
+        <div className="h-full flex flex-col justify-center items-center">
+            <MediaRoom conversationId={callId}
+                       currentUser={currentUser}
+                       audio={true}
+                       video={false}/>
+        </div>
 
     );
 }
