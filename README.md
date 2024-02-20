@@ -4,3 +4,6 @@
 - Prisma
 - Mongo db
 - Socker io
+
+## Clean code
+- cleaned names
