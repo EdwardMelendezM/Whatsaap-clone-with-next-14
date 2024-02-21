@@ -6,4 +6,5 @@
 - Socker io
 
 ## Clean code
-- cleaned names
+- Names
+- Functions
