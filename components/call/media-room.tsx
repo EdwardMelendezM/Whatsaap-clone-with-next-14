@@ -33,7 +33,7 @@ export const MediaRoom = ({
                 console.log(e);
             }
         })()
-    }, []);
+    }, [conversationId, currentUser.name]);
 
     if (token === '') {
         return (
