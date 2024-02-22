@@ -8,3 +8,5 @@
 ## Clean code
 - Names
 - Functions
+- Hooks
+- Libs
